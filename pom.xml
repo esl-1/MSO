@@ -14,11 +14,25 @@
   	<javax.servlet-version>1.2</javax.servlet-version>
   	<org.apache.commons-version>2.0</org.apache.commons-version>
   	<org.hibernate-version>4.3.6.Final</org.hibernate-version>
+  	<org.primefaces.themes-version>1.0.10</org.primefaces.themes-version>
+  	<org.primefaces-version>5.0</org.primefaces-version>
+  	<org.springframework-version>4.1.0.RELEASE</org.springframework-version>
   	<maven-compiler-plugin-version>3.1</maven-compiler-plugin-version>
   	<maven-war-plugin-version>2.4</maven-war-plugin-version>
   </properties>
   
   <dependencies>
+  	<dependency>
+		<groupId>org.primefaces.themes</groupId>
+		<artifactId>all-themes</artifactId>
+		<version>${org.primefaces.themes-version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.primefaces</groupId>
+		<artifactId>primefaces</artifactId>
+		<version>${org.primefaces-version}</version>
+	</dependency>
+	
     <dependency>
       <groupId>org.wildfly</groupId>
       <artifactId>wildfly-controller-client</artifactId>
@@ -54,7 +68,31 @@
 		<artifactId>hibernate-core</artifactId>
 		<version>${org.hibernate-version}</version>
 	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-orm</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+		<version>${org.springframework-version}</version>
+	</dependency>
   </dependencies>
+  
+  <!-- Prime Faces Repository -->
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>Prime Repo</name>
+			<url>http://repository.primefaces.org</url>
+		</repository>
+	</repositories>
   
 
   <build>
