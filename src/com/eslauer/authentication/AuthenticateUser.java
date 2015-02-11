@@ -2,8 +2,12 @@ package com.eslauer.authentication;
 
 import javax.faces.bean.SessionScoped;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.eslauer.models.User;
+import com.eslauer.persistence.UserDaoImpl;
 
 @Component
 @SessionScoped
@@ -12,13 +16,21 @@ public class AuthenticateUser {
 	private String userName;
 	private String password;
 	private String nickName;
+	private User user = new User();
+	private Boolean authenticated = false;
 	
 	@Autowired
-	private Boolean authenticated = false;
+	private SessionFactory sessionFactory;
+
+	@Autowired
+	private UserDaoImpl userDaoImpl = new UserDaoImpl();
 	
 	public String login(){
 		
-		
+		user.setNickName(nickName);
+		user.setUserName(userName);
+		user.setPassword(password);
+	
 		authenticated = true;
 		return "/secured/welcome.xhtml";
 	}
