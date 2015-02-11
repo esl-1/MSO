@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.eslauer.models.User;
 
+
 public interface IUserDao {
 	
 	List<User> getAllUsers();
