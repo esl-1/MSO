@@ -1,10 +1,8 @@
-package com.eslauer.authentication;
+package com.eslauer.controllers;
 
 import java.io.IOException;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -15,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
-
-import com.eslauer.authentication.AuthenticateUser;
 
 /**
  * Servlet Filter implementation class AuthenticationFilter
@@ -39,8 +35,7 @@ public class AuthenticationFilter extends GenericFilterBean {
 		//String url = httpRequest.getServletPath();
 
 		if (!userAuth.isAuthenticated()) {
-			//System.out.println("User is not authenticated.");
-			httpResponse.sendRedirect(context + "/login.xhtml");
+			httpResponse.sendRedirect(context + "/index.xhtml");
 		} else {
 			//System.out.println("User is authenticated.");
 			filterChain.doFilter(request, response);

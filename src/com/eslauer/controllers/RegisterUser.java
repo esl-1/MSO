@@ -1,8 +1,7 @@
-package com.eslauer.authentication;
+package com.eslauer.controllers;
 
 import java.util.List;
 
-import javax.ejb.Singleton;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
@@ -73,7 +72,7 @@ public class RegisterUser {
 		
 		logger.info("registered");
 		
-		return "/login.xhtml?faces-redirect=true";
+		return "/index.xhtml?faces-redirect=true";
 	}
 
 	//--- Getters and Setters ---
@@ -119,5 +118,9 @@ public class RegisterUser {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getPassword(){
+		return password;
 	}
 }
