@@ -26,7 +26,7 @@ public class UserDaoImpl implements IUserDao {
 		logger.info("Getting list of all users...");
 		@SuppressWarnings("unchecked")
 		List<User> list = sessionFactory.getCurrentSession().createQuery("From User").list();
-		logger.info("Completed getting list of alll users.");
+		logger.info("Completed getting list of all users.");
 		return list;
 	}
 

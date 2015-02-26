@@ -11,22 +11,19 @@
 </h:head>
 <h:body>
 <p:layout style="margin:0px; background-color:yellow; min-width:400px; min-height:600px; border: 0px;" >
-		<p:layoutUnit position="north" resizable="true" size="40px"
-			minSize="40" maxSize="40" style="text-align:right; font-size:8pt; border:0px;">
-			<h:form id="login" rendered="true" >
-			Username: <p:inputText value="#{authenticateUser.userName}" id="username" />
-			Password: <p:password value="#{authtenticateUser.password}" id="password" />
-				<p:commandButton value="Login" action="#{authenticateUser.login}" style="background-color:white; color:navy;" />
-				<p:commandButton value="Register"
-					action="register.xhtml" style="background-color:white; color:navy;" />
-			</h:form>
-		</p:layoutUnit>
-		<p:layoutUnit position="center" style="minSize:200; maxSize:400; border: 0px;">
-			center
-		</p:layoutUnit>
-		<p:layoutUnit position="south" style="size:60px; border: 0px;">
-			south (footer)
-		</p:layoutUnit>
+	<p:layoutUnit position="center" resizable="true" size="400px"
+		minSize="400" maxSize="400" style="text-align:center; font-size:8pt; border:0px;">
+		<h:form id="login" rendered="true" >
+		Username: <p:inputText value="#{authenticateUser.userName}" id="username" />
+		Password: <p:password value="#{authenticateUser.password}" id="password" />
+			<p:commandButton value="Login" action="#{authenticateUser.login()}" style="background-color:white; color:navy;" />
+			<p:commandButton value="Register"
+				action="/register.xhtml?faces-redirect=true" style="background-color:white; color:navy;" />
+		</h:form>
+	</p:layoutUnit>
+	<p:layoutUnit position="south" style="size:60px; border: 0px;">
+		south (footer)
+	</p:layoutUnit>
 </p:layout>
 </h:body>
 </html>

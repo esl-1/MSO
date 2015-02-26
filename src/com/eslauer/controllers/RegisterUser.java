@@ -15,7 +15,7 @@ import com.eslauer.persistence.UserDaoImpl;
 
 @Component
 @SessionScoped
-public class RegisterUser {
+public final class RegisterUser {
 	
 	private Logger logger = Logger.getLogger(RegisterUser.class);
 	
@@ -25,18 +25,15 @@ public class RegisterUser {
 	private String nickName;
 	private String email;
 	private Boolean userExists = false;
-	
-	@Autowired
-	private SessionFactory sessionFactory;
 
 	@Autowired
-	private UserDaoImpl userDaoImpl = new UserDaoImpl();
+	private DaoController daoController = new DaoController();
 	
 	public String register() {
 		logger.info("Registering...");
 		
 		// get list of users from database
-		List<User> userList = userDaoImpl.getAllUsers();
+		List<User> userList = daoController.getUserDaoImpl().getAllUsers();
 		String url = "/register.xhtml?faces-redirect=true";
 
 		// Check if userName already exists
@@ -46,7 +43,6 @@ public class RegisterUser {
 				// choose another username
 				userExists = true;
 				userName = "";
-				nickName = "";
 				password = "";
 				passwordConfirm = "";
 
@@ -67,8 +63,10 @@ public class RegisterUser {
 		user.setPassword(pwHashed);
 		user.setNickName(nickName);
 		
+		
+		
 		// add to user table
-		userDaoImpl.add(user);
+		daoController.getUserDaoImpl().add(user);
 		
 		logger.info("registered");
 		

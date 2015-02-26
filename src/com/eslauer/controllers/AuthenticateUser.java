@@ -14,26 +14,22 @@ import com.eslauer.persistence.UserDaoImpl;
 
 @Component
 @Scope("session")
-public class AuthenticateUser {
+public final class AuthenticateUser {
 	
 	private Logger logger = Logger.getLogger(AuthenticateUser.class);
 	
 	private String userName;
 	private String password;
-
 	private Boolean authenticated = false;
 	private User user = new User();
 	
 	@Autowired
-	private SessionFactory sessionFactory;
-
-	@Autowired
-	private UserDaoImpl userDaoImpl = new UserDaoImpl();
+	private DaoController daoController = new DaoController();
 	
 	public String login() {
 		logger.info("Logging in....");
 		authenticated = false;
-		List<User> users = userDaoImpl.getAllUsers();
+		List<User> users = daoController.getUserDaoImpl().getAllUsers();
 		String url = "index.xhtml?faces-redirect=true";
 		
 		// check for user in database
@@ -46,9 +42,10 @@ public class AuthenticateUser {
 				// clear password field
 				password = "";
 				url = "/secured/welcome.xhtml?faces-redirect=true";
+				break;// exit for-loop
 			}
 		}
-		logger.info("logged in");
+		logger.info("Logged in");
 		return url;
 	}
 	
@@ -60,7 +57,7 @@ public class AuthenticateUser {
 		return "/index.xhtml?faces-redirect=true";
 	}
 
-	//--- Getters and Setters ---
+	//------ Getters and Setters ------
 	public String getUserName() {
 		return userName;
 	}
@@ -69,9 +66,9 @@ public class AuthenticateUser {
 		this.userName = userName;
 	}
 
-	public String getPassword() {
+/*	public String getPassword() {
 		return password;
-	}
+	}*/
 
 	public void setPassword(String password) {
 		this.password = password;

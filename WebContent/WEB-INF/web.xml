@@ -2,8 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>LF</display-name>
   
-  
-    	<listener>
+    <listener>
 	<listener-class>
 		org.springframework.web.context.ContextLoaderListener
 	</listener-class>
@@ -15,12 +14,12 @@
   	</listener>
 
 	<filter>
-		<filter-name>authenticateFilter</filter-name>
+		<filter-name>authenticationFilter</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
 
 	<filter-mapping>
-		<filter-name>authenticateFilter</filter-name>
+		<filter-name>authenticationFilter</filter-name>
 		<url-pattern>/secured/*</url-pattern>
 	</filter-mapping>
 
@@ -52,9 +51,4 @@
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
   
-  <!-- Set PrimeFaces Theme -->
-  <context-param>
-    <param-name>primefaces.THEME</param-name>
-    <param-value>bluesky</param-value>
-  </context-param>
 </web-app>

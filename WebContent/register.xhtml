@@ -11,12 +11,12 @@
 </h:head>
 <h:body>
 	<h:form name="logoutform" style="">
-		<p:commandButton value="Return to Login"
-					action="/login.xhtml?faces-redirect=true" />
+		<p:commandButton value="Return to Login" style="background-color:white; color:navy; font-size:10pt;"
+					action="/index.xhtml?faces-redirect=true" />
 	</h:form>
 	<p:layout>
 		<h:form id="registerform" style="border:0;">
-			<p:layoutUnit position="west" resizable="true" size="700" style="border:0;">
+			<p:layoutUnit position="center" resizable="true" size="700" style="border:0;">
 				<h3>Registration</h3>
 				<p:panelGrid columns="2" id="registerUser" style="border:0;">
 					<h:outputLabel for="userExists"
@@ -30,7 +30,7 @@
 					<h:outputLabel for="nickName" value="Nickame:" />
 					<p:inputText id="nickName" value="#{registerUser.nickName}"
 						label="Nick Name" />
-					<h:outputLabel for="userPw" value="Password 1: *" />
+					<h:outputLabel for="password" value="Password 1: *" />
 					<p:password id="password" value="#{registerUser.password}"
 						feedback="true" match="passwordConfirm" label="Password 1" required="true" />
 					<h:outputLabel for="passwordConfirm" value="Confirm Password: *" />
@@ -40,7 +40,7 @@
 					<p:inputText id="email" value="#{registerUser.email}" label="email" />
 				</p:panelGrid>
 				<br />
-				
+				<p:commandButton value="register" action="#{registerUser.register()}" style="background-color:white; color:navy;" />
 			</p:layoutUnit>
 		</h:form>
 	</p:layout>
