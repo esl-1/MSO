@@ -19,7 +19,7 @@ import org.springframework.web.filter.GenericFilterBean;
  */
 @Component
 @Scope("singleton")
-public final class AuthenticationFilter extends GenericFilterBean {
+public class AuthenticationFilter extends GenericFilterBean {
 
 	@Autowired
 	private AuthenticateUser userAuth;
@@ -32,6 +32,10 @@ public final class AuthenticationFilter extends GenericFilterBean {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 
 		String context = httpRequest.getContextPath();
+		
+		String requestHeader = httpRequest.getHeader(context);
+		System.out.println(requestHeader);
+		
 		//String url = httpRequest.getServletPath();
 
 		if (!userAuth.isAuthenticated()) {

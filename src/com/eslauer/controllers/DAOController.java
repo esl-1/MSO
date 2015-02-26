@@ -6,16 +6,14 @@ import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.eslauer.persistence.UserDaoImpl;
 
 @Component
 @SessionScoped
-@Transactional
-public final class DaoController {
+public class DAOController {
 	
-	private Logger logger = Logger.getLogger(DaoController.class);
+	private Logger logger = Logger.getLogger(DAOController.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;

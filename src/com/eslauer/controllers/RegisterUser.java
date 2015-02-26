@@ -15,7 +15,7 @@ import com.eslauer.persistence.UserDaoImpl;
 
 @Component
 @SessionScoped
-public final class RegisterUser {
+public class RegisterUser {
 	
 	private Logger logger = Logger.getLogger(RegisterUser.class);
 	
@@ -25,9 +25,12 @@ public final class RegisterUser {
 	private String nickName;
 	private String email;
 	private Boolean userExists = false;
+	
+	@Autowired
+	private SessionFactory sessionFactory;
 
 	@Autowired
-	private DaoController daoController = new DaoController();
+	private DAOController daoController = new DAOController();
 	
 	public String register() {
 		logger.info("Registering...");
@@ -74,8 +77,25 @@ public final class RegisterUser {
 	}
 
 	//--- Getters and Setters ---
+	
 	public String getUserName() {
 		return userName;
+	}
+
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	public DAOController getDaoController() {
+		return daoController;
+	}
+
+	public void setDaoController(DAOController daoController) {
+		this.daoController = daoController;
 	}
 
 	public void setUserName(String userName) {

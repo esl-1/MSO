@@ -14,7 +14,7 @@ import com.eslauer.persistence.UserDaoImpl;
 
 @Component
 @Scope("session")
-public final class AuthenticateUser {
+public class AuthenticateUser {
 	
 	private Logger logger = Logger.getLogger(AuthenticateUser.class);
 	
@@ -24,7 +24,12 @@ public final class AuthenticateUser {
 	private User user = new User();
 	
 	@Autowired
-	private DaoController daoController = new DaoController();
+	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private DAOController daoController = new DAOController();
+
+
 	
 	public String login() {
 		logger.info("Logging in....");
@@ -58,6 +63,7 @@ public final class AuthenticateUser {
 	}
 
 	//------ Getters and Setters ------
+
 	public String getUserName() {
 		return userName;
 	}
@@ -66,9 +72,9 @@ public final class AuthenticateUser {
 		this.userName = userName;
 	}
 
-/*	public String getPassword() {
+	public String getPassword() {
 		return password;
-	}*/
+	}
 
 	public void setPassword(String password) {
 		this.password = password;
