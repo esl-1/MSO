@@ -14,9 +14,9 @@ import com.eslauer.models.User;
 @Component
 @Scope("session")
 @Transactional
-public class UserDaoImpl implements IUserDao {
+public class UserDAOImpl implements IUserDAO {
 	
-	private Logger logger = Logger.getLogger(UserDaoImpl.class);
+	private Logger logger = Logger.getLogger(UserDAOImpl.class);
 	
 	@Autowired
 	private SessionFactory sessionFactory;

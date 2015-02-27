@@ -19,10 +19,10 @@ import org.springframework.web.filter.GenericFilterBean;
  */
 @Component
 @Scope("singleton")
-public class AuthenticationFilter extends GenericFilterBean {
+public class ViewsFilter extends GenericFilterBean {
 
 	@Autowired
-	private AuthenticateUser userAuth;
+	private AuthUser userAuth;
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,

@@ -10,23 +10,23 @@
 <title>LF Home</title>
 </h:head>
 <h:body>
-<p:layout style="margin:0px; background-color:yellow; min-width:400px; min-height:600px; border: 0px;" >
+<p:layout style="margin:0px; background-color:gray; min-width:400px; min-height:600px; border: 0px;" >
+	<p:layoutUnit position="north" style="size:60px; text-align:center; border: 0px;">
+		header
+	</p:layoutUnit>
 	<p:layoutUnit position="center" resizable="true" size="400px"
 		minSize="400" maxSize="400" style="text-align:center; font-size:8pt; border:0px;">
 		<h:form id="login" rendered="true" >
-		Username: <p:inputText value="#{authenticateUser.userName}" id="username" />
-		Password: <p:password value="#{authenticateUser.password}" id="password" />
-			<p:commandButton value="Login" action="#{authenticateUser.login()}" style="background-color:white; color:navy;" />
+		Username: <p:inputText value="#{authUser.userName}" id="username" />
+		Password: <p:password value="#{authUser.password}" id="password" />
+			<p:commandButton value="Login" action="#{authUser.login()}" style="background-color:white; color:navy;" />
 			<p:commandButton value="Register"
 				action="/register.xhtml?faces-redirect=true" style="background-color:white; color:navy;" />
 		</h:form>
 	</p:layoutUnit>
-	<p:layoutUnit position="south" style="size:60px; border: 0px;">
-		south (footer)
+	<p:layoutUnit position="south" style="size:60px; text-align:center; border: 0px;">
+		footer
 	</p:layoutUnit>
 </p:layout>
-<div id="footer">
-	<ui:include src="footer.xhtml"></ui:include>
-</div>
 </h:body>
 </html>

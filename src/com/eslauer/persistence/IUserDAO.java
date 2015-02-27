@@ -5,7 +5,7 @@ import java.util.List;
 import com.eslauer.models.User;
 
 
-public interface IUserDao {
+public interface IUserDAO {
 	
 	List<User> getAllUsers();
 	User getUserByUsername(String username);

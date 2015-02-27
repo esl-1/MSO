@@ -14,13 +14,13 @@
   	</listener>
 
 	<filter>
-		<filter-name>authenticationFilter</filter-name>
+		<filter-name>viewsFilter</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
 
 	<filter-mapping>
-		<filter-name>authenticationFilter</filter-name>
-		<url-pattern>/secured/*</url-pattern>
+		<filter-name>viewsFilter</filter-name>
+		<url-pattern>/views/*</url-pattern>
 	</filter-mapping>
 
      <servlet>

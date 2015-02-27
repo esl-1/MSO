@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.eslauer.models.User;
-import com.eslauer.persistence.UserDaoImpl;
+import com.eslauer.persistence.UserDAOImpl;
 
 @Component
 @SessionScoped
@@ -29,15 +29,14 @@ public class RegisterUser {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	//----- DAO Implementors -----
 	@Autowired
-	private UserDaoImpl userDaoImpl = new UserDaoImpl();
+	private DAOController daoController = new DAOController();
 	
 	public String register() {
 		logger.info("Registering...");
 		
 		// get list of users from database
-		List<User> userList = userDaoImpl.getAllUsers();
+		List<User> userList = daoController.getUserDaoImpl().getAllUsers();
 		String url = "/register.xhtml?faces-redirect=true";
 
 		// Check if userName already exists
@@ -70,7 +69,7 @@ public class RegisterUser {
 		
 		
 		// add to user table
-		userDaoImpl.add(user);
+		daoController.getUserDaoImpl().add(user);
 		
 		logger.info("registered");
 		

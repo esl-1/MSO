@@ -10,13 +10,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.eslauer.models.User;
-import com.eslauer.persistence.UserDaoImpl;
+import com.eslauer.persistence.UserDAOImpl;
 
 @Component
 @Scope("session")
-public class AuthenticateUser {
+public class AuthUser {
 	
-	private Logger logger = Logger.getLogger(AuthenticateUser.class);
+	private Logger logger = Logger.getLogger(AuthUser.class);
 	
 	private String userName;
 	private String password;
@@ -25,29 +25,27 @@ public class AuthenticateUser {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
-	
-	//----- DAO Implementors -----
+
 	@Autowired
-	private UserDaoImpl userDaoImpl = new UserDaoImpl();
+	private DAOController daoController = new DAOController();
 
-
-	
 	public String login() {
 		logger.info("Logging in....");
 		authenticated = false;
-		List<User> users = userDaoImpl.getAllUsers();
+		List<User> users = daoController.getUserDaoImpl().getAllUsers();
 		String url = "index.xhtml?faces-redirect=true";
 		
 		// check for user in database
-		for (User aUser : users) {
-			if (aUser.getUserName().equals(userName)
-					&& BCrypt.checkpw(password, aUser.getPassword())) {
+		for (User user : users) {
+			if (user.getUserName().equals(userName)
+					&& BCrypt.checkpw(password, user.getPassword())) {
 				authenticated = true;
-				this.setUser(aUser);
+				this.setUser(user);
 				
-				// clear password field
+				// clear fields
 				password = "";
-				url = "/secured/welcome.xhtml?faces-redirect=true";
+				userName = "";
+				url = "/views/welcome.xhtml?faces-redirect=true";
 				break;// exit for-loop
 			}
 		}
