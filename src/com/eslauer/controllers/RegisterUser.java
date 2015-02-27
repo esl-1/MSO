@@ -29,14 +29,15 @@ public class RegisterUser {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	//----- DAO Implementors -----
 	@Autowired
-	private DAOController daoController = new DAOController();
+	private UserDaoImpl userDaoImpl = new UserDaoImpl();
 	
 	public String register() {
 		logger.info("Registering...");
 		
 		// get list of users from database
-		List<User> userList = daoController.getUserDaoImpl().getAllUsers();
+		List<User> userList = userDaoImpl.getAllUsers();
 		String url = "/register.xhtml?faces-redirect=true";
 
 		// Check if userName already exists
@@ -69,7 +70,7 @@ public class RegisterUser {
 		
 		
 		// add to user table
-		daoController.getUserDaoImpl().add(user);
+		userDaoImpl.add(user);
 		
 		logger.info("registered");
 		
@@ -88,14 +89,6 @@ public class RegisterUser {
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
-	}
-
-	public DAOController getDaoController() {
-		return daoController;
-	}
-
-	public void setDaoController(DAOController daoController) {
-		this.daoController = daoController;
 	}
 
 	public void setUserName(String userName) {

@@ -26,15 +26,16 @@ public class AuthenticateUser {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	//----- DAO Implementors -----
 	@Autowired
-	private DAOController daoController = new DAOController();
+	private UserDaoImpl userDaoImpl = new UserDaoImpl();
 
 
 	
 	public String login() {
 		logger.info("Logging in....");
 		authenticated = false;
-		List<User> users = daoController.getUserDaoImpl().getAllUsers();
+		List<User> users = userDaoImpl.getAllUsers();
 		String url = "index.xhtml?faces-redirect=true";
 		
 		// check for user in database

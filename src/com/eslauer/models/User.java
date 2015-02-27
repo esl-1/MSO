@@ -1,6 +1,6 @@
 package com.eslauer.models;
 
-// Generated Feb 10, 2015 2:29:24 PM by Hibernate Tools 4.3.1
+// Generated Feb 26, 2015 9:33:46 PM by Hibernate Tools 4.3.1
 
 import java.util.Date;
 
@@ -9,11 +9,6 @@ import java.util.Date;
  */
 public class User implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
 	private Integer userId;
 	private String userName;
 	private String password;
@@ -22,13 +17,6 @@ public class User implements java.io.Serializable {
 	private String nickName;
 
 	public User() {
-	}
-
-	public User(String userName, String password, String email, String nickName) {
-		this.userName = userName;
-		this.password = password;
-		this.email = email;
-		this.nickName = nickName;
 	}
 
 	public User(String userName, String password, String email,
