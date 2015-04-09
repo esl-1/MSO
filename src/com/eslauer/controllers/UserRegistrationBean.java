@@ -11,18 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.eslauer.models.User;
-import com.eslauer.persistence.UserDAOImpl;
 
 @Component
 @SessionScoped
-public class RegisterUser {
+public class UserRegistrationBean {
 	
-	private Logger logger = Logger.getLogger(RegisterUser.class);
+	private Logger logger = Logger.getLogger(UserRegistrationBean.class);
 	
-	private String userName;
+	private String username;
 	private String password;
 	private String passwordConfirm;
-	private String nickName;
+	private String nickname;
 	private String email;
 	private Boolean userExists = false;
 	
@@ -30,26 +29,26 @@ public class RegisterUser {
 	private SessionFactory sessionFactory;
 
 	@Autowired
-	private DAOController daoController = new DAOController();
+	private DaoController daoController = new DaoController();
 	
 	public String register() {
 		logger.info("Registering...");
 		
 		// get list of users from database
-		List<User> userList = daoController.getUserDaoImpl().getAllUsers();
+		List<User> userList = daoController.getUserDAOImpl().getAllUsers();
 		String url = "/register.xhtml?faces-redirect=true";
 
 		// Check if userName already exists
 		for (User user : userList) {
-			if (user.getUserName().equals(userName)) {
+			if (user.getUserName().equals(username)) {
 				// UserName already taken: user must
 				// choose another username
 				userExists = true;
-				userName = "";
+				username = "";
 				password = "";
 				passwordConfirm = "";
 
-				logger.info("Registration failed! UserName already taken.");
+				logger.info("Registration failed! Username already taken.");
 				return url;
 			}
 		}
@@ -60,54 +59,50 @@ public class RegisterUser {
 		// create a new user
 		User user = new User();
 		user.setEmail(email);
-		user.setUserName(userName);
+		user.setUserName(username);
 		// hash password for security
 		String pwHashed = BCrypt.hashpw(password, BCrypt.gensalt());
 		user.setPassword(pwHashed);
-		user.setNickName(nickName);
-		
-		
+		user.setNickname(nickname);
 		
 		// add to user table
-		daoController.getUserDaoImpl().add(user);
+		daoController.getUserDAOImpl().add(user);
 		
-		logger.info("registered");
+		logger.info("Registered");
 		
 		return "/index.xhtml?faces-redirect=true";
 	}
 
-	//--- Getters and Setters ---
+	public Boolean getUserExists() {
+		return userExists;
+	}
+
+	public void setUserExists(Boolean userExists) {
+		this.userExists = userExists;
+	}
 	
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getPasswordConfirm() {
-		return passwordConfirm;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setPasswordConfirm(String passwordConfirm) {
-		this.passwordConfirm = passwordConfirm;
-	}
-
-	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getEmail() {
@@ -118,19 +113,12 @@ public class RegisterUser {
 		this.email = email;
 	}
 
-	public Boolean getUserExists() {
-		return userExists;
+	public DaoController getDaoController() {
+		return daoController;
 	}
 
-	public void setUserExists(Boolean userExists) {
-		this.userExists = userExists;
+	public void setDaoController(DaoController daoController) {
+		this.daoController = daoController;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public String getPassword(){
-		return password;
-	}
 }

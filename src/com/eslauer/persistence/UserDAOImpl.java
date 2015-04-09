@@ -1,9 +1,11 @@
 package com.eslauer.persistence;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -23,10 +25,13 @@ public class UserDAOImpl implements IUserDAO {
 
 	@Override
 	public List<User> getAllUsers() {
-		logger.info("Getting list of all users...");
-		@SuppressWarnings("unchecked")
-		List<User> list = sessionFactory.getCurrentSession().createQuery("From User").list();
-		logger.info("Completed getting list of all users.");
+		logger.info("Getting list of all USERS.");
+		
+		List<User> list = null;
+		list = sessionFactory.getCurrentSession().createQuery("From User").list();
+		if(list == null){
+			return Collections.emptyList();
+		}
 		return list;
 	}
 
@@ -40,9 +45,8 @@ public class UserDAOImpl implements IUserDAO {
 
 	@Override
 	public void add(User user) {
-		logger.info("Adding a new user...");
+		logger.info("Adding a new USER.");
 		sessionFactory.getCurrentSession().save(user);
-		logger.info("Completed adding a new User.");
 	}
 
 	@Override

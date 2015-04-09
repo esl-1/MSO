@@ -10,15 +10,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.eslauer.models.User;
-import com.eslauer.persistence.UserDAOImpl;
 
 @Component
 @Scope("session")
-public class AuthUser {
+public class UserAuthBean {
 	
-	private Logger logger = Logger.getLogger(AuthUser.class);
+	private Logger logger = Logger.getLogger(UserAuthBean.class);
 	
-	private String userName;
+	private String username;
 	private String password;
 	private Boolean authenticated = false;
 	private User user = new User();
@@ -27,24 +26,28 @@ public class AuthUser {
 	private SessionFactory sessionFactory;
 
 	@Autowired
-	private DAOController daoController = new DAOController();
+	private static DaoController daoController = new DaoController();
 
 	public String login() {
 		logger.info("Logging in....");
 		authenticated = false;
-		List<User> users = daoController.getUserDaoImpl().getAllUsers();
+		List<User> users = null;
+		users = daoController.getUserDAOImpl().getAllUsers();
+		if(users == null){
+			return "index.xhtml";
+		}
 		String url = "index.xhtml?faces-redirect=true";
 		
 		// check for user in database
-		for (User user : users) {
-			if (user.getUserName().equals(userName)
-					&& BCrypt.checkpw(password, user.getPassword())) {
+		for (User usr : users) {
+			if (usr.getUserName().equals(username)
+					&& BCrypt.checkpw(password, usr.getPassword())) {
 				authenticated = true;
-				this.setUser(user);
+				this.setUser(usr);
 				
 				// clear fields
 				password = "";
-				userName = "";
+				username = "";
 				url = "/views/welcome.xhtml?faces-redirect=true";
 				break;// exit for-loop
 			}
@@ -55,7 +58,7 @@ public class AuthUser {
 	
 	public String logout(){
 		authenticated = false;
-		userName = "";
+		username = "";
 		password = "";
 		user = null;
 		return "/index.xhtml?faces-redirect=true";
@@ -63,12 +66,12 @@ public class AuthUser {
 
 	//------ Getters and Setters ------
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
