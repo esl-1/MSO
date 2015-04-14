@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 10, 2015 11:34:20 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.eslauer.models.Codes" table="codes" catalog="medical_schedule_optimizer">
+        <id name="idcodes" type="java.lang.Integer">
+            <column name="idcodes" />
+            <generator class="identity" />
+        </id>
+        <property name="icd10Code" type="string">
+            <column name="icd_10_code" length="45" not-null="true" />
+        </property>
+        <property name="icd10Name" type="string">
+            <column name="icd_10_name" length="85" not-null="true" />
+        </property>
+        <property name="icd9Code" type="string">
+            <column name="icd_9_code" length="45" />
+        </property>
+        <property name="icd9Name" type="string">
+            <column name="icd_9_name" length="85" />
+        </property>
+    </class>
+</hibernate-mapping>

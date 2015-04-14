@@ -1,0 +1,34 @@
+
+.blueHeader {
+	width: 98%; 
+	border: 0px; 
+	margin: 0px;
+	color: navy;
+	background-color: LightSteelBlue; 
+	text-align: left;"
+}
+
+.centerPanel{
+	align: center;
+	width: 800px;
+	text-align: center;
+}
+
+.blueFooter {
+	width: 98%; 
+	border: 0px; 
+	margin: 0px;
+	color: navy;
+	background: LightSteelBlue; 
+	text-align: left;"
+	font-size: 8pt;
+}
+
+.noMargin {
+	margin: 0px;
+}
+
+.noBorder {
+	border: 0px;
+}
+

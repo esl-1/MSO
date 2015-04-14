@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<style>
+.blueFooter {
+	width: 98%; 
+	border: 0px; 
+	margin: 0px;
+	color: navy;
+	background: LightSteelBlue; 
+	text-align: left;"
+	font-size: 8pt;
+}
+</style>
+</h:head>
+<h:body style="margin: 0px;">
+	<div align="center">
+		<p:layout style="min-height: 720px;">
+
+			<p:layoutUnit position="north" size="90" resizable="true"
+				style="margin: 0px; border: 0px;">
+				<p:panel
+					style="width: 98%; border: 0px; background-color: LightSteelBlue; text-align: left;">
+					<h:graphicImage name="img/logo.png" />
+					<h:outputLabel rendered="#{!userAuthBean.isAuthenticated()}"
+						style="color: navy;">Patient Management System 1.0</h:outputLabel>
+					<h:outputLabel rendered="#{userAuthBean.isAuthenticated()}"
+						style="color: navy;">Welcome #{userAuthBean.getUser().getNickname()}</h:outputLabel>
+				</p:panel>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center" resizable="true"
+				style="border-style: hidden; margin: 0px; border: 0px;">
+				<p:panel style="width:401px; border: none !important; background-color: LightSteelBlue;">
+					<p></p>
+					<h:form id="login"
+						style="align: center; text-align: center; width: 98%; top: 200px;">
+						<p:panelGrid columns="1" id="registerUser">
+						
+							<p:row>
+								<p:column style="background-color: silver;">
+									<h:outputText style="font-size: 20pt; color: navy;"
+										value="Login" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column style="text-align: left;">
+									<h:outputText value="UserName:" />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{userAuthBean.username}" id="username" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column style="text-align: left;">
+									<h:outputText value="Password: " />
+								</p:column>
+								<p:column>
+									<p:password value="#{userAuthBean.password}" id="userPw" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<!-- <f:facet name="footer"> -->
+									<p:commandButton id="loginbutton" value="Login" style="background-color: LightSteelBlue;"
+										icon="ui-icon-check" action="#{userAuthBean.login()}" />
+									<!-- </f:facet> -->
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:form>
+					<h:form id="registerform">
+						<br />
+						<p:commandLink id="gotoRegistrationPage"
+							action="/register.xhtml?faces-redirect=true" value="Register" />
+						<br />
+					</h:form>
+				</p:panel>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="south" size="90" resizable="true" styleClass=" blueFooter, noMargin, noBorder;" >
+				<ui:include id="include" src="/resources/component/footerPage.xhtml"  />
+			</p:layoutUnit>
+		</p:layout>
+	</div>
+</h:body>
+</html>
