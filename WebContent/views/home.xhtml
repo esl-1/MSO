@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<link rel="stylesheet" type="text/css" href="/mystyle.css" />
+</h:head>
+<body style="margin: 0px;">
+	<div align="center">
+		<p:layout resizable="true" style="min-height: 720px;">
+		
+			<p:layoutUnit position="north" size="90" resizable="true"
+				style="margin: 0px; border: 0px;">
+				<p:panel
+					style="width: 98%; border: 0px; background-color: LightSteelBlue; text-align: left;">
+					<h:outputLabel rendered="#{!userAuthBean.isAuthenticated()}"
+						style="color: white;">Patient Management System 1.0</h:outputLabel>
+					<h:outputLabel rendered="#{userAuthBean.isAuthenticated()}"
+						style="color: white;">Welcome #{userAuthBean.getUser().getNickname()}</h:outputLabel>
+				</p:panel>
+			</p:layoutUnit>	
+
+			<p:layoutUnit position="center" style="min-height: 360; border-style: hidden;">
+				<div align="center" style="width: 800px;">
+					<h:form id="gotoSchedule">
+						<br />
+						<p:commandLink id="gotoSchedule"
+							action="/views/schedule.xhtml?faces-redirect=true"
+							value="View Schedule" />
+						<br />
+					</h:form>
+					<p:dataTable var="pat"
+						value="#{daoManager.getPatientDao().getAllPatients()}" rows="10"
+						paginator="true" style="border: 0px;"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" resizable="true">
+						<p:column headerText="First">
+							<h:outputText value="#{pat.getFirstName()}" readonly="true" />
+						</p:column>
+						<p:column headerText="Last" style="">
+							<h:outputText value="#{pat.getLastName()}" />
+						</p:column>
+						<p:column headerText="DOB">
+							<h:outputText value="#{pat.getDob()}" />
+						</p:column>
+						<p:column headerText="Gender" style="">
+							<h:outputText value="#{pat.getGender()}" />
+						</p:column>
+						<p:column headerText="Cell" style="">
+							<h:outputText value="#{pat.getCell()}" />
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="south" size="90" resizable="true"
+				style="margin: 0px; border: 0px;">
+				<p:panel
+					style="width: 98%; margin: 0px; border: 0px; background-color: LightSteelBlue; text-align: left">
+					<h:outputLabel style="color: white;">Copyright ESLS LLC. - Patient Management Software</h:outputLabel>
+					<br />
+					<h:outputLabel style="color: white;">All Rights Reserverd</h:outputLabel>
+				</p:panel>
+			</p:layoutUnit>
+
+		</p:layout>
+	</div>
+</body>
+</html>

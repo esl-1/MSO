@@ -1,48 +1,83 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:composite="http://java.sun.com/jsf/composite"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
-<title>Register</title>
+<link rel="stylesheet" type="text/css" href="mystyle.css" />
 </h:head>
-<h:body>
-	<h:form name="logoutform" style="">
-		<p:commandButton value="Return to Login" style="background-color:white; color:navy; font-size:10pt;"
-					action="/index.xhtml?faces-redirect=true" />
-	</h:form>
-	<p:layout>
-		<h:form id="registerform" style="border:0;">
-			<p:layoutUnit position="center" resizable="true" size="700" style="border:0;">
-				<h3>Registration</h3>
-				<p:panelGrid columns="2" id="registerUser" style="border:0;">
-					<h:outputLabel for="userExists"
-						rendered="#{registerUser.getUserExists()}" style="color: red;"
-						value="User Name already exists, please enter a different User Name" />
-					<h:outputLabel id="userExists"
-						rendered="#{registerUser.getUserExists()}" value="" />
-					<h:outputLabel for="username" value="User Name:" />
-					<p:inputText id="username" value="#{registerUser.userName}"
-						label="User Name" />
-					<h:outputLabel for="nickName" value="Nickame:" />
-					<p:inputText id="nickName" value="#{registerUser.nickName}"
-						label="Nick Name" />
-					<h:outputLabel for="password" value="Password 1: *" />
-					<p:password id="password" value="#{registerUser.password}"
-						feedback="true" match="passwordConfirm" label="Password 1" required="true" />
-					<h:outputLabel for="passwordConfirm" value="Confirm Password: *" />
-					<p:password id="passwordConfirm" value="#{registerUser.password}"
-						feedback="true" label="Password 2" required="true" />
-					<h:outputLabel for="email" value="Email:" />
-					<p:inputText id="email" value="#{registerUser.email}" label="email" />
-				</p:panelGrid>
-				<br />
-				<p:commandButton value="register" action="#{registerUser.register()}" style="background-color:white; color:navy;" />
+<body style="margin: 0px;">
+	<div align="center">
+		<p:layout resizable="true" style="min-height: 720px;">
+		
+			<p:layoutUnit position="north" size="90" resizable="true"
+				style="margin: 0px; border: 0px;">
+				<p:panel
+					style="width: 98%; border: 0px; background-color: LightSteelBlue; text-align: left;">
+					<h:outputLabel rendered="#{!userAuthBean.isAuthenticated()}"
+						style="color: white;">Patient Management System 1.0</h:outputLabel>
+					<h:outputLabel rendered="#{userAuthBean.isAuthenticated()}"
+						style="color: white;">Welcome #{userAuthBean.getUser().getNickname()}</h:outputLabel>
+				</p:panel>
+			</p:layoutUnit>			
+
+			<div style="width: 800px;">
+				<p:layoutUnit position="center" resizable="true"
+					style="border-style: hidden;">
+					<h:form id="registerform">
+						<p:panelGrid columns="2" id="registerUser">
+							<f:facet name="header">
+								Registration Form
+							</f:facet>
+							<h:outputLabel for="userExists"
+								rendered="#{userRegistrationBean.getUserExists()}"
+								style="color: red;"
+								value="User Name already exists, please enter a different User Name" />
+							<h:outputLabel id="userExists"
+								rendered="#{userRegistrationBean.getUserExists()}" value="" />
+							<h:outputLabel for="username" value="User Name:" />
+							<p:inputText id="username"
+								value="#{userRegistrationBean.username}" label="User Name" />
+							<h:outputLabel for="nickname" value="Nick Name (displayed name):" />
+							<p:inputText id="nickname"
+								value="#{userRegistrationBean.nickname}" label="nickname" />
+							<h:outputLabel for="email" value="Email:" />
+							<p:inputText id="email" value="#{userRegistrationBean.email}"
+								label="email" />
+							<h:outputLabel for="userPw" value="Password:" />
+							<p:password id="userPw" value="#{userRegistrationBean.password}"
+								feedback="true" match="passwordConfirm" label="Password 1"
+								required="true" />
+							<h:outputLabel for="passwordConfirm" value="Confirm Password:" />
+							<p:password id="passwordConfirm"
+								value="#{userRegistrationBean.passwordConfirm}" feedback="true"
+								label="Password 2" required="true" />
+							<f:facet name="footer">
+								<p:commandButton id="registerbutton" value="Register"
+									icon="ui-icon-check"
+									action="#{userRegistrationBean.register()}" />
+							</f:facet>
+						</p:panelGrid>
+					</h:form>
+					<h:form id="returnform">
+						<br />
+						<p:commandLink id="gotologin"
+							action="/login.xhtml?faces-redirect=true" value="Return to Login" />
+						<br />
+					</h:form>
+				</p:layoutUnit>
+			</div>
+			<p:layoutUnit position="south" size="90" resizable="true"
+				style="margin: 0px; border: 0px;">
+				<p:panel
+					style="width: 98%; margin: 0px; border: 0px; background-color: LightSteelBlue; text-align: left">
+					<h:outputLabel style="color: white;">Copyright ESLS LLC. - Patient Management Software</h:outputLabel>
+					<br />
+					<h:outputLabel style="color: white;">All Rights Reserverd</h:outputLabel>
+				</p:panel>
 			</p:layoutUnit>
-		</h:form>
-	</p:layout>
-</h:body>
+		</p:layout>
+	</div>
+</body>
 </html>

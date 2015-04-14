@@ -2,18 +2,17 @@ package com.eslauer.controllers;
 
 import java.util.List;
 
-import javax.faces.bean.SessionScoped;
-
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.eslauer.models.User;
 
 @Component
-@SessionScoped
+@Scope("session")
 public class UserRegistrationBean {
 	
 	private Logger logger = Logger.getLogger(UserRegistrationBean.class);
@@ -29,24 +28,24 @@ public class UserRegistrationBean {
 	private SessionFactory sessionFactory;
 
 	@Autowired
-	private DaoController daoController = new DaoController();
+	private DaoManager daoManager = new DaoManager();
 	
 	public String register() {
 		logger.info("Registering...");
 		
 		// get list of users from database
-		List<User> userList = daoController.getUserDAOImpl().getAllUsers();
+		List<User> userList = daoManager.getUserDao().getAllUsers();
 		String url = "/register.xhtml?faces-redirect=true";
 
 		// Check if userName already exists
 		for (User user : userList) {
-			if (user.getUserName().equals(username)) {
+			if (user.getUsername().equals(username)) {
 				// UserName already taken: user must
 				// choose another username
 				userExists = true;
 				username = "";
 				password = "";
-				passwordConfirm = "";
+				setPasswordConfirm("");
 
 				logger.info("Registration failed! Username already taken.");
 				return url;
@@ -59,18 +58,18 @@ public class UserRegistrationBean {
 		// create a new user
 		User user = new User();
 		user.setEmail(email);
-		user.setUserName(username);
+		user.setUsername(username);
 		// hash password for security
 		String pwHashed = BCrypt.hashpw(password, BCrypt.gensalt());
 		user.setPassword(pwHashed);
 		user.setNickname(nickname);
 		
 		// add to user table
-		daoController.getUserDAOImpl().add(user);
+		daoManager.getUserDao().add(user);
 		
 		logger.info("Registered");
 		
-		return "/index.xhtml?faces-redirect=true";
+		return "/registrationSuccess.xhtml?faces-redirect=true";
 	}
 
 	public Boolean getUserExists() {
@@ -113,12 +112,11 @@ public class UserRegistrationBean {
 		this.email = email;
 	}
 
-	public DaoController getDaoController() {
-		return daoController;
+	public String getPasswordConfirm() {
+		return passwordConfirm;
 	}
 
-	public void setDaoController(DaoController daoController) {
-		this.daoController = daoController;
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
 	}
-
 }

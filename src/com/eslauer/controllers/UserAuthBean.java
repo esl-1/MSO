@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.eslauer.models.User;
+import com.eslauer.persistence.IUserDAO;
+import com.eslauer.persistence.UserDAOImpl;
 
 @Component
 @Scope("session")
@@ -26,21 +28,21 @@ public class UserAuthBean {
 	private SessionFactory sessionFactory;
 
 	@Autowired
-	private static DaoController daoController = new DaoController();
+	private DaoManager daoManager = new DaoManager();
 
 	public String login() {
 		logger.info("Logging in....");
 		authenticated = false;
 		List<User> users = null;
-		users = daoController.getUserDAOImpl().getAllUsers();
+		users = daoManager.getUserDao().getAllUsers();
 		if(users == null){
 			return "index.xhtml";
 		}
-		String url = "index.xhtml?faces-redirect=true";
+		String url = "login.xhtml?faces-redirect=true";
 		
 		// check for user in database
 		for (User usr : users) {
-			if (usr.getUserName().equals(username)
+			if (usr.getUsername().equals(username)
 					&& BCrypt.checkpw(password, usr.getPassword())) {
 				authenticated = true;
 				this.setUser(usr);
@@ -48,7 +50,7 @@ public class UserAuthBean {
 				// clear fields
 				password = "";
 				username = "";
-				url = "/views/welcome.xhtml?faces-redirect=true";
+				url = "/views/home.xhtml?faces-redirect=true";
 				break;// exit for-loop
 			}
 		}
@@ -61,10 +63,18 @@ public class UserAuthBean {
 		username = "";
 		password = "";
 		user = null;
-		return "/index.xhtml?faces-redirect=true";
+		return "/login.xhtml?faces-redirect=true";
 	}
 
 	//------ Getters and Setters ------
+	
+	public DaoManager getDaoManager() {
+		return daoManager;
+	}
+
+	public void setDaoManager(DaoManager daoManager) {
+		this.daoManager = daoManager;
+	}
 
 	public String getUsername() {
 		return username;
