@@ -5,16 +5,18 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-<link rel="stylesheet" type="text/css" href="mystyle.css" />
+<h:outputStylesheet library="css" name="mystyle.css"  />
 </h:head>
-<body style="margin: 0px;">
+<h:body style="margin: 0px;">
 	<div align="center">
 		<p:layout resizable="true" style="min-height: 720px;">
 		
 			<p:layoutUnit position="north" size="90" resizable="true"
 				style="margin: 0px; border: 0px;">
+				
 				<p:panel
 					style="width: 98%; border: 0px; background-color: LightSteelBlue; text-align: left;">
+					<h:graphicImage name="img/logo.png" />
 					<h:outputLabel rendered="#{!userAuthBean.isAuthenticated()}"
 						style="color: white;">Patient Management System 1.0</h:outputLabel>
 					<h:outputLabel rendered="#{userAuthBean.isAuthenticated()}"
@@ -79,5 +81,5 @@
 			</p:layoutUnit>
 		</p:layout>
 	</div>
-</body>
+</h:body>
 </html>
